@@ -1,0 +1,33 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "LIRI node app to call back functions in Spotify, OMBD & Bands in Town.",
+  "main": "liri.js",
+  "scripts": {
+    "test": "node liri test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zizuar/liri-node-app.git"
+  },
+  "keywords": [
+    "liri",
+    "omdb",
+    "spotify",
+    "bandsintown",
+    "bot",
+    "first-node"
+  ],
+  "author": "Donald P Polansky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zizuar/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/Zizuar/liri-node-app#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.2.0",
+    "moment": "^2.24.0",
+    "node-spotify-api": "^1.0.7"
+  }
+}
