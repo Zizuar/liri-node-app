@@ -1,6 +1,6 @@
 /*jshinSt esversion: 6 */
 // Requirements
-// require("dotenv").config();
+require("dotenv").config();
 var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
 var moment = require('moment');
@@ -19,16 +19,17 @@ var userMovie = "";
 // capture argv from terminal line and transfer following arguments into empty variables based on position 3[2]. Eventually see if you can expand it into only setting for a specific key. Otherwise simply ignore the unused variable it will create as it will voerwrite later.
 for (var i = 3; i < stringArgv.length; i++) {
     if (i > 3 && i < stringArgv.length) {
-        userConcert = userConcert + "+" + stringArgv[i];
-        userSong = userSong + "+" + stringArgv[i];
-        userMovie = userMovie + "+" + stringArgv[i];
+        userConcert = userConcert + " " + stringArgv[i];
+        userSong = userSong + " " + stringArgv[i];
+        userMovie = userMovie + " " + stringArgv[i];
     } else {
         userConcert += stringArgv[i];
         userSong += stringArgv[i];
         userMovie += stringArgv[i];
     }
 }
-console.log(userConcert, userMovie, userSong)
+console.log(userConcert, userMovie, userSong);
+console.log(argument)
 // Liri Spotify Commands utilizing switchcase to determine function intended to run.
 switch (argument) {
     case "concert-this":
@@ -43,19 +44,19 @@ switch (argument) {
     case "do-what-it-says":
         dowhatitsays();
         break;
+    default: console.log(argument); break;
 }
 
 // functions activated via the above switch/case
 function concertThis() {
     if (userConcert === "") {
+        userConcert="MercyMe";
+    }       
     var getBiT = "https://rest.bandsintown.com/artists/" + userConcert + "/events?app_id=codingbootcamp";
     axios.get(getBiT).then(
         function (response, err) {
-            // console.log(response.data)
-            // if (response) {
-                // var infoBiT = response.data
-                // console.log(infoBiT)
-                if (infoBiT of response.data){
+            if (response) {
+                var infoBiT = response.data[0]
                 var venueName = "Venue Name: " + infoBiT.venue.name;
                 var venueLocation = "Venue Location: " + infoBiT.venue.city;
                 var playTime = infoBiT.datetime;
@@ -66,15 +67,17 @@ function concertThis() {
                 console.log(venueName);
                 console.log(venueLocation);
                 console.log(venueDate);
-                // fs.appendFile('log.txt', venueRecord, function (err) {
-                    // for (err {
-                        // console.log(err);
+                fs.appendFile('log.txt', venueRecord, function (err) {
+                    if (err) {
+                        console.log(err);
                     }
-            
-            // }else{                
+                    else console.log("updated txt file")
+                })
+            }else{                
                 console.log(err);
             }
-        }        
+        }); 
+}
 
 function spotifyThisSong() {
     if (userSong === "") {
