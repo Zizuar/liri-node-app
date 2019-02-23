@@ -116,6 +116,8 @@ function movieThis() {
 
     console.log(queryUrl);
 
+    // Attempting to use JSON.parse on this one after a different class discussion. Doesn't seem to be working so I will be going back to my variable assignment instead.
+    
     axios.get(queryUrl).then(function (response, err) {
         console.log(response)
         // console.log(err ? 'Errors occurred: ' + err : "");
