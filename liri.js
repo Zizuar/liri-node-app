@@ -21,7 +21,7 @@ for (var i = 3; i < stringArgv.length; i++) {
     if (i > 3 && i < stringArgv.length) {
         userConcert = userConcert + " " + stringArgv[i];
         userSong = userSong + " " + stringArgv[i];
-        userMovie = userMovie + " " + stringArgv[i];
+        userMovie = userMovie + "+" + stringArgv[i];
     } else {
         userConcert += stringArgv[i];
         userSong += stringArgv[i];
@@ -29,8 +29,8 @@ for (var i = 3; i < stringArgv.length; i++) {
     }
 }
 console.log(userConcert, userMovie, userSong);
-console.log(argument)
-// Liri Spotify Commands utilizing switchcase to determine function intended to run.
+// console.log(argument)
+// Liri Commands utilizing switchcase to determine function intended to run.
 switch (argument) {
     case "concert-this":
         concertThis();
@@ -109,6 +109,34 @@ function spotifyThisSong() {
     }
 }
 
+function movieThis() {
+    if (userMovie === "") {
+    userMovie="Batman";}
+    var queryUrl = "http://www.omdbapi.com/?t=" + userMovie + "&y=&plot=short&apikey=trilogy";
+
+    console.log(queryUrl);
+
+    axios.get(queryUrl).then(function (response, err) {
+        console.log(response)
+        // console.log(err ? 'Errors occurred: ' + err : "");
+        // if (response) {
+        //     var infoBiT = response
+        //     console.log(infoBiT)
+        //     console.log(this.data)
+            console.log("Title: " + response.Title);
+            console.log("Release Year: " + JSON.parse(data).Year);
+            console.log("Rated: " + JSON.parse(this).Rated);
+            console.log("Actors: " + JSON.parse(body).Actors);
+            console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+            console.log("Rotten Tomatoes Rating: " + JSON.parse(body).rottenTomatoesRating);  //need to fix
+            console.log("Country/Countries Filmed: " + JSON.parse(body).Country);
+            console.log("Language(s): " + JSON.parse(body).Language);
+            console.log("Plot: " + JSON.parse(body).Plot);
+        // }else{                
+            console.log(err);
+        }
+    );
+}
 
 function doWhatItSays() {
 	fs.readFile("random.txt", "utf8", (error, data)); {
