@@ -28,7 +28,7 @@ for (var i = 3; i < stringArgv.length; i++) {
         userMovie += stringArgv[i];
     }
 }
-console.log(userConcert, userMovie, userSong);
+// console.log(userConcert, userMovie, userSong);
 // console.log(argument)
 // Liri Commands utilizing switchcase to determine function intended to run.
 switch (argument) {
@@ -36,6 +36,7 @@ switch (argument) {
         concertThis();
         break;
     case "spotify-this-song":
+    // console.log('hi')
         spotifyThisSong();
         break;
     case "movie-this":
@@ -92,32 +93,36 @@ function concertThis() {
 
 function spotifyThisSong() {
     if (userSong === "") {
+        userSong = "The Sign Ace of Base";}
+        // console.log('hi2')
+        {
         spotify.search({
-            type: 'track',
-            query: 'The Sign Ace of Base',
-            limit: 20
-        }), function (err, data) {
-            var artist = "Artist(s): " + data.tracks.items[0].artists[0].name;
-            var songName = "Song Title: " + data.tracks.items[0].name;
-            var previewLink = "Preview Link: " + data.tracks.items[0].preview_url;
-            var albumName = "Album Name: " + data.tracks.items[0].album.name;
-            console.log(artist);
-            console.log(songName);
-            console.log(previewLink);
-            console.log(albumName);
-            if (error) {
-                console.log("Unable to comply: " + userSong + " : " + err);
-            }
+        type: 'track',
+        query: "'" + userSong + "'",
+        limit: 20
+    }, function (err, data) {
+        // console.log(err, data)
+        var artist = "Artist(s): " + data.tracks.items[0].artists[0].name;
+        var songName = "Song Title: " + data.tracks.items[0].name;
+        var previewLink = "Preview Link: " + data.tracks.items[0].preview_url;
+        var albumName = "Album Name: " + data.tracks.items[0].album.name;
+        console.log(artist);
+        console.log(songName);
+        console.log(previewLink);
+        console.log(albumName);
+        if (err) {
+            console.log("Unable to comply: " + userSong + " : " + err);
+        }
 
-            // log all user song requests to log.txt. Should not override the log each time.
-            var songRecord = artistName + songName + previewLink + albumName;
-            fs.appendFile('log.txt', spotifyRecord, function (err) {
-                if (error) {
-                    console.log(err);
-                }
-            });
-        };
-    }
+        // log all user song requests to log.txt. Should not override the log each time.
+        var songRecord = artist + songName + previewLink + albumName;
+        fs.appendFile('log.txt', songRecord, function (err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+    });
+}
 }
 
 // function movieThis() {
@@ -169,7 +174,7 @@ function movieThis() {
             // var infoA = response;
             // console.log(infoA);
             // console.log(data.infoA);
-            console.log("Retrieving movie information for " + userSong)
+            console.log("Retrieving movie information for " + userSong);
             console.log("Title: " + response.data.Title);
             console.log("Release Year: " + response.data.Year);
             console.log("Rated: " + response.data.Rated);
@@ -186,8 +191,8 @@ function movieThis() {
 }
 
 function doWhatItSays() {
-	fs.readFile("random.txt", "utf8", (error, data)); {
-        if (error) {
+	fs.readFile("random.txt", "utf8", (err, data)); {
+        if (err) {
 			return console.log("Unable to comply." + error);
 		}else{
 		var dataArr = data.split(",");

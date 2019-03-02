@@ -17,4 +17,4 @@ Just Do It! | node liri do-what-it-says | node liri do-what-it-says
 
 #### Are instructions not your strong suit? Then do I have a video for you! Checkout below for a guided tour of liri:
 
-
+<https://youtu.be/ixjAzCFKgpI>
