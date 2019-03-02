@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-console.log('this is loaded');
+// console.log('this is loaded');
 
 require("dotenv").config();
 

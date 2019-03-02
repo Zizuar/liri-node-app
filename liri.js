@@ -44,7 +44,18 @@ switch (argument) {
     case "do-what-it-says":
         dowhatitsays();
         break;
+    case "hi":
+        hiThere();
+        break;
+    case "help":
+        hiThere();
+        break;
     default: console.log(argument); break;
+}
+
+function hiThere(){
+    console.log("Well Hello! Please access one of the following commands:");
+    console.log("[Concert-This]-[Spotify-This-Song]-[Movie-This]-[Do-What-It-Says]");
 }
 
 // functions activated via the above switch/case
@@ -56,7 +67,7 @@ function concertThis() {
     axios.get(getBiT).then(
         function (response, err) {
             if (response) {
-                var infoBiT = response.data[0]
+                var infoBiT = response.data[0];
                 var venueName = "Venue Name: " + infoBiT.venue.name;
                 var venueLocation = "Venue Location: " + infoBiT.venue.city;
                 var playTime = infoBiT.datetime;
@@ -71,8 +82,8 @@ function concertThis() {
                     if (err) {
                         console.log(err);
                     }
-                    else console.log("updated txt file")
-                })
+                    else console.log("updated txt file");
+                });
             }else{                
                 console.log(err);
             }
@@ -109,35 +120,69 @@ function spotifyThisSong() {
     }
 }
 
+// function movieThis() {
+//     if (userMovie === "") {
+//     userMovie="Batman";}
+//     var queryUrl = "http://www.omdbapi.com/?t=" + userMovie + "&y=&plot=short&apikey=trilogy";
+
+//     console.log(queryUrl);
+
+//     // Attempting to use JSON.parse on this one after a different class discussion. Doesn't seem to be working so I will be going back to my variable assignment instead.
+    
+//     axios.get(queryUrl).then(function (response, err) {
+//         // console.log(response);
+//         console.log(err ? 'Errors occurred: ' + err : "");
+//         if (response) {
+//             var infoA = response;
+//             console.log(infoA);
+//             // console.log(data.infoA);
+//             console.log("Title: " + response.Title);
+//             console.log("Release Year: " + JSON.parse(data).Year);
+//             console.log("Rated: " + JSON.parse(this).Rated);
+//             console.log("Actors: " + JSON.parse(body).Actors);
+//             console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+//             console.log("Rotten Tomatoes Rating: " + JSON.parse(body).rottenTomatoesRating);  //need to fix
+//             console.log("Country/Countries Filmed: " + JSON.parse(body).Country);
+//             console.log("Language(s): " + JSON.parse(body).Language);
+//             console.log("Plot: " + JSON.parse(body).Plot);
+//         }else{                
+//             console.log(err);
+//         }
+//     });
+// }
+
+// Now that movie is working I fixed the default search from 'Batman' to the required 'Mr. Nobody'.
+
 function movieThis() {
     if (userMovie === "") {
-    userMovie="Batman";}
+    userMovie="Mr.+Nobody";}
     var queryUrl = "http://www.omdbapi.com/?t=" + userMovie + "&y=&plot=short&apikey=trilogy";
 
     console.log(queryUrl);
 
-    // Attempting to use JSON.parse on this one after a different class discussion. Doesn't seem to be working so I will be going back to my variable assignment instead.
+    // Apparently made it too complicated on myself. Tried response.(field) and data.(field) but never tried response.data.(field)
     
     axios.get(queryUrl).then(function (response, err) {
-        console.log(response)
-        // console.log(err ? 'Errors occurred: ' + err : "");
-        // if (response) {
-        //     var infoBiT = response
-        //     console.log(infoBiT)
-        //     console.log(this.data)
-            console.log("Title: " + response.Title);
-            console.log("Release Year: " + JSON.parse(data).Year);
-            console.log("Rated: " + JSON.parse(this).Rated);
-            console.log("Actors: " + JSON.parse(body).Actors);
-            console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-            console.log("Rotten Tomatoes Rating: " + JSON.parse(body).rottenTomatoesRating);  //need to fix
-            console.log("Country/Countries Filmed: " + JSON.parse(body).Country);
-            console.log("Language(s): " + JSON.parse(body).Language);
-            console.log("Plot: " + JSON.parse(body).Plot);
-        // }else{                
+        // console.log(response);
+        console.log(err ? 'Errors occurred: ' + err : "");
+        if (response) {
+            // var infoA = response;
+            // console.log(infoA);
+            // console.log(data.infoA);
+            console.log("Retrieving movie information for " + userSong)
+            console.log("Title: " + response.data.Title);
+            console.log("Release Year: " + response.data.Year);
+            console.log("Rated: " + response.data.Rated);
+            console.log("Actors: " + response.data.Actors);
+            console.log("IMDB Rating: " + response.data.imdbRating);
+            console.log("Rotten Tomatoes Rating: " + response.data.rottenTomatoesRating);  //need to fix
+            console.log("Country/Countries Filmed: " + response.data.Country);
+            console.log("Language(s): " + response.data.Language);
+            console.log("Plot: " + response.data.Plot);
+        }else{                
             console.log(err);
         }
-    );
+    });
 }
 
 function doWhatItSays() {
@@ -148,7 +193,7 @@ function doWhatItSays() {
 		var dataArr = data.split(",");
 		action = dataArr[0];
         songTitle = dataArr[1];
-        var userSong = action + "" + songTitle
+        var userSong = action + "" + songTitle;
 		spotifyThisSong();
         }
     }
